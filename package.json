@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "jasmine": "jasmine",
+    "jasmine": "db-migrate --env test up && ENV=test jasmine && db-migrate --env test down",
     "start": "nodemon src/index.ts",
     "test": "npm run build && npm run jasmine",
     "lint": "eslint ./src/index.ts",
-    "prettier": "prettier --config .prettierrc.json \"src/**/*.ts\" --write"
+    "prettier": "prettier --config .prettierrc.json \"src/**/*.ts\" --write",
+    "db-up": "db-migrate up",
+    "db-down": "db-migrate down"
   },
   "repository": {
     "type": "git",
