@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/Omar-AT-Hashem/storefrontBackend-udacity#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.15",
     "@types/jasmine": "^4.3.1",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/node": "^18.11.18",
     "@types/pg": "^8.6.6",
     "@types/supertest": "^2.0.12",
@@ -44,6 +46,7 @@
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-supertest": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.8.0",
     "supertest": "^6.3.3"
   }
