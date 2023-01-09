@@ -3,14 +3,14 @@
         "driver":"pg",
         "host":"localhost",
         "database":"storefront",
-        "user":"omar",
+        "user":"user1",
         "password":"123"
     },
     "test":{
         "driver":"pg",
         "host":"localhost",
         "database":"storefront_test",
-        "user":"omar",
+        "user":"user1",
         "password":"123"
     }
 }
