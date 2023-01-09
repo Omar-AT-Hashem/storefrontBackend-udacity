@@ -1,1 +1,27 @@
 # storefrontBackend-udacity
+
+### run "npm install" to download all necessary packages
+
+### run "npm run build" to build the project
+
+### run "npm run test" for the unit tests
+
+### run "npm run db-up" and "npm run db-down" for up and down migrations
+
+### run "npm run lint" and "npm run prettier" for linting
+
+## .env variables
+
+{
+POSTGRES_HOST = 127.0.0.1
+POSTGRES_DB = storefront
+POSTGRES_TEST_DB = storefront_test
+POSTGRES_USER = user1
+POSTGRES_PASSWORD = 123
+ENV = dev
+BCRYPT_PASSWORD = 123
+SALT_ROUNDS = 10
+TOKEN_SECRET = 123
+}
+
+### access the main api route on 'localhost:3000/api/(the endpoint you want to access)'
