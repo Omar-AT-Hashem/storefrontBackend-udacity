@@ -123,12 +123,11 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-const userRouter = (app: express.Application) => {
-  app.get('/', verifyAuthToken, index);
-  app.get('/:id', verifyAuthToken, show);
-  app.post('create', create);
-  app.post('/login', login);
-  app.put('/:id', verifyAuthToken, update);
-};
+var userRouter = express.Router();
 
+userRouter.get('/', verifyAuthToken, index);
+userRouter.get('/:id', verifyAuthToken, show);
+userRouter.post('/create', create);
+userRouter.post('/login', login);
+userRouter.put('/:id', verifyAuthToken, update);
 export default userRouter;

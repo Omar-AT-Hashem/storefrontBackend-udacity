@@ -51,10 +51,10 @@ const showUserCompletedOrder = async (req: Request, res: Response) => {
   }
 };
 
-const orderRouter = (app: express.Application) => {
-  app.post('/create', verifyAuthToken, create);
-  app.get('/user', verifyAuthToken, showUserCurrentOrder);
-  app.get('/user/completed', verifyAuthToken, showUserCompletedOrder);
-};
+const orderRouter = express.Router();
+
+orderRouter.post('/create', verifyAuthToken, create);
+orderRouter.get('/user', verifyAuthToken, showUserCurrentOrder);
+orderRouter.get('/user/completed', verifyAuthToken, showUserCompletedOrder);
 
 export default orderRouter;

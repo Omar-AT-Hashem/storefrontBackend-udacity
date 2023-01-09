@@ -88,13 +88,13 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-const productRouter = (app: express.Application) => {
-  app.get('/', index);
-  app.get('/:id', show);
-  app.get('/:category', showByCategory);
-  app.post('/create', verifyAuthToken, create);
-  app.put('/:id', verifyAuthToken, update);
-  app.delete('/:id', verifyAuthToken, deleteProduct);
-};
+const productRouter = express.Router();
+
+productRouter.get('/', index);
+productRouter.get('/:id', show);
+productRouter.get('/:category', showByCategory);
+productRouter.post('/create', verifyAuthToken, create);
+productRouter.put('/:id', verifyAuthToken, update);
+productRouter.delete('/:id', verifyAuthToken, deleteProduct);
 
 export default productRouter;

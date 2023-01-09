@@ -14,7 +14,7 @@ nd backend have agreed meet the requirements of the application.
 
 - Index 'users/' [GET](token)
 - Show 'users/:id' [GET](token)
-- Create 'users/' [POST](token)
+- Create 'users/create' [POST](token)
 - Delete [token required]: 'users/:id' [DELETE](token)
 
 #### Orders
@@ -33,7 +33,7 @@ Delete [token required]: 'orders/:id [DELETE](token)
 - id
 - name
 - price
-- [OPTIONAL] category
+- category
 
 #### User
 
