@@ -47,3 +47,8 @@ and it should display all created users
 
 the rest of the api endpoints can be tested out with this method
 refer to the REQUIRMENTS.md for more information about the data shapes and request types
+
+
+
+![image](https://user-images.githubusercontent.com/108857901/211616318-12c4703e-a5eb-4a26-b8b7-6a29a338a5b3.png)
+
