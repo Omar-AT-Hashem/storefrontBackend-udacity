@@ -30,28 +30,26 @@ Delete [token required]: 'orders/:id [DELETE](token)
 
 #### Product
 
-- id
-- name
-- price
-- category
+- id (serial pk)
+- name (varchar(100))
+- price (integer)
+- category (varchar(100))
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+- id (serial pk)
+- firstName (varchar(100))
+- lastName (varchar(100))
+- password (varchar(100))
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id (serial pk)
+- user_id (integer)
+- status of order (varchar(100))
 
 #### OrderProducts
 
-- order_id
-- product_id
-- quantity
+- order_id order (integer)
+- product_id (integer)
+- quantity (integer)
