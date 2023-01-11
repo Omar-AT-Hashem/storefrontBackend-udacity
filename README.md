@@ -24,6 +24,9 @@ SALT_ROUNDS = 10
 TOKEN_SECRET = 123
 }
 
+server running on port 3000
+db server running on port 5432
+
 ### access the main api route on 'localhost:3000/api/(the endpoint you want to access)'
 
 ####To create a user

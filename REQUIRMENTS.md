@@ -49,3 +49,9 @@ Delete [token required]: 'orders/:id [DELETE](token)
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+#### OrderProducts
+
+- order_id
+- product_id
+- quantity
