@@ -3,6 +3,13 @@ import app from '../../index';
 
 const request: supertest.SuperTest<Test> = supertest(app);
 
+const testUser = {
+  firstName: 'test',
+  lastName: 'user',
+  userName: 'testUserAPI',
+  password: 'test123'
+};
+
 describe('User API', () => {
   describe('endpoint /users', () => {
     it('index endpoint should unauthorized', async () => {
@@ -13,8 +20,17 @@ describe('User API', () => {
 
   describe('endpoint /users/create', () => {
     it('for create user /users/create', async () => {
-      const response: Response = await request.post('/users/create');
-      expect(response.status).toBe(404);
+      // const response: Response = await request
+      //   .post('localhost:3000/api/users/create')
+      //   .set('Content-type', 'application/json')
+      //   .send(testUser);
+
+        request
+        .post('localhost:3000/api/users/create')
+        .send(testUser)
+        .expect('Content-Type', 'application/json')
+        .expect(200)
+    })
     });
 
     it('for get user /users/1', async () => {
@@ -34,4 +50,4 @@ describe('User API', () => {
       expect(response.status).toBe(404);
     });
   });
-});
+
