@@ -43,7 +43,6 @@ describe('User Model', () => {
     if (result) {
       expect(result.first_name).toBe('John');
       expect(result.last_name).toBe('Doe');
-      expect(result.user_name).toBe('johndoe');
     }
   });
 

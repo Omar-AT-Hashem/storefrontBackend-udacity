@@ -1,38 +1,142 @@
-import supertest, { Response, Test } from 'supertest';
-import app from '../../index';
-import {createJWTToken} from '../../createJWTToken'
+import supertest from 'supertest'
+import app from '../../index'
+import { createJWTToken } from '../../createJWTToken'
 
-const request: supertest.SuperTest<Test> = supertest(app);
-
+const request = supertest(app)
 const token: string = createJWTToken(1, 'test', 'user')
-const testOrder = {
-  user_id: 1,
-  status: 'active',
-}
-describe('Orders API', () => {
-  describe('endpoint /orders/create', () => {
-    it('create orders endpoint ', async () => {
-      request
-      .post('localhost:3000/api/orders/create')
+
+describe('Orders handlers: ', () => {
+  it('/orders should return a new order ', () => {
+    const data = {
+      user_id: 1,
+      status: 'new',
+    }
+    request
+      .post('/api/orders')
       .set('Authorization', `Bearer ${token}`)
-      .send(testOrder)
+      .send(data)
+      .expect('Content-Type', 'application/json')
+      .expect(201)
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'new',
+      })
+  })
+
+  it('/orders/add-product/:id should add a product to an order', () => {
+    const data = {
+      product_id: 1,
+      quantity: 10,
+    }
+    request
+      .post('/api/orders/add-product/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect('Content-Type', 'application/json')
+      .expect(201)
+      .expect({
+        id: 1,
+        order_id: 1,
+        product_id: 1,
+        quantity: 10,
+      })
+  })
+
+  it('/orders/create should fail if user_id is not included in parameters', () => {
+    const data = {
+      status: 'new',
+    }
+    request
+      .post('/api/orders/create')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect(400)
+      .expect({
+        error: 'Missing one or more required parameters',
+      })
+  })
+
+  it('/orders/create should fail if status is not included in parameters', () => {
+    const data = {
+      user_id: 1,
+    }
+    request
+      .post('/api/orders/create')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect(400)
+      .expect({
+        error: 'Missing one or more required parameters',
+      })
+  })
+
+  it('/orders should show all orders', () => {
+    request
+      .get('/api/orders')
       .expect('Content-Type', 'application/json')
       .expect(200)
-    });
-    it('get user orders /orders/user should be authorized', async () => {
-      const response: Response = await request.get('/orders/user');
-      expect(response.status).toBe(404);
-    });
-    it('get user completed orders /orders/user/completed should be authorized', async () => {
-      const response: Response = await request.get('/orders/user/completed');
-      expect(response.status).toBe(404);
-    });
-  });
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'new',
+      })
+  })
 
-  describe('invalid endpoint: /orders', () => {
-    it('returns 404 for invalid endpoint', async () => {
-      const response: Response = await request.get('/orders');
-      expect(response.status).toBe(404);
-    });
-  });
-});
+  it('/orders/:id show a order', () => {
+    request
+      .get('/api/orders/1')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', 'application/json')
+      .expect(200)
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'new',
+      })
+  })
+
+  it('/orders should update an order', () => {
+    const data = {
+      id: 1,
+      user_id: 1,
+      status: 'used',
+    }
+    request
+      .put('/api/orders/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect('Content-Type', 'application/json')
+      .expect(200)
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'used',
+      })
+  })
+
+  it('/orders/:id should delete an order given its id', () => {
+    request
+      .delete('/api/orders/1')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200)
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'used',
+      })
+  })
+
+  it('/orders/user-orders/:id should show orders related to a user', () => {
+    request
+      .get('/api/orders/user-orders/1')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect({
+        id: 1,
+        user_id: 1,
+        status: 'used',
+      })
+  })
+})

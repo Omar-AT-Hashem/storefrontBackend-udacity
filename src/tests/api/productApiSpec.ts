@@ -1,53 +1,93 @@
-import supertest, { Response, Test } from 'supertest';
-import app from '../../index';
+import supertest from 'supertest'
+import app from '../../index'
+import { createJWTToken } from '../../createJWTToken'
 
-const request: supertest.SuperTest<Test> = supertest(app);
+const request = supertest(app)
+const token: string = createJWTToken(1, 'Test', 'User')
 
-const testProduct =  {  
-name: "scent",
-price: "25",
-category: "perfume"
-}
-
-describe('Product API', () => {
-  describe('endpoint /products', () => {
-    it('index endpoint should return all products', async () => {
-      const response: Response = await request.get('/products');
-      expect(response.status).toBe(404);
-    });
-  });
-
-  describe('endpoint /products/create', () => {
-    it('for create product /products/create', async () => {
-      request
-      .post('localhost:3000/api/products/create')
-      .send(testProduct)
-      .expect('Content-Type', 'application/json')
-      .expect(200)
+describe('Product handlers: ', () => {
+  it('should return a new product after it is created', () => {
+    const data = {
+      name: 'Test',
+      price: 20.0,
+    }
+    request
+      .post('/api/products')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .expect({
+        id: 1,
+        name: 'Test',
+        price: '$20.00',
+      })
   })
-  });
-    });
 
-    it('for get product /products/1', async () => {
-      const response: Response = await request.get('/products/1');
-      expect(response.status).toBe(404);
-    });
+  it('create product should fail if name is not included in parameters', () => {
+    const data = {
+      name: 'Test',
+      price: 20.0,
+    }
+    request
+      .post('/api/products')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect(400)
+      .expect({
+        error: 'Error: Product name is required',
+      })
+  })
 
-    it('for update /products/1 unauthorized', async () => {
-      const response: Response = await request.put('/products/1');
-      expect(response.status).toBe(404);
-    });
+  it('should show all products', () => {
+    request
+      .get('/api/products')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect({
+        id: 1,
+        name: 'Test',
+        price: 20.0,
+      })
+  })
 
-    it('for delete /products/1 unauthorized', async () => {
-      const response: Response = await request.put('/products/1');
-      expect(response.status).toBe(404);
-    });
- 
+  it('should show a product given an id', () => {
+    request
+      .get('/api/products/1')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect({
+        id: 1,
+        name: 'Test',
+        price: 20.0,
+      })
+  })
 
-  describe('invalid endpoint: /product', () => {
-    it('returns 404 for invalid endpoint', async () => {
-      const response: Response = await request.get('/product');
-      expect(response.status).toBe(404);
-    });
-  });
+  it('should have an update product endpoint', () => {
+    const data = {
+      name: 'Test edited',
+      price: 30.0,
+    }
+    request
+      .put('/api/products/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect({
+        id: 1,
+        name: 'Test edited',
+        price: 30.0,
+      })
+  })
 
+  it('should delete a product given its id', () => {
+    request
+      .delete('/api/products/1')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200)
+      .then(() => {
+        request.get('/api/products').expect({})
+      })
+  })
+})
