@@ -5,6 +5,8 @@
 ### run "npm run build" to build the project
 
 ### run "npm run test" for the unit tests
+![image](https://user-images.githubusercontent.com/108857901/219094329-0fa6bb05-7649-4651-b1f0-af8df3d3cde2.png)
+
 
 ### run "npm run db-up" and "npm run db-down" for up and down migrations
 
@@ -58,6 +60,15 @@ refer to the REQUIRMENTS.md for more information about the data shapes and reque
 ![image](https://user-images.githubusercontent.com/108857901/211616742-5501a17f-a176-4f48-80ef-dd460ec20e6d.png)
 
 ![image](https://user-images.githubusercontent.com/108857901/211616847-bea4ec1c-980e-42db-8451-d6dfd06a29f0.png)
+
+
+#unit testing results
+
+### running 'npm run test'
+
+![image](https://user-images.githubusercontent.com/108857901/219094709-1cc77ec7-fe16-4b32-ad7a-693489e2e4e7.png)
+![image](https://user-images.githubusercontent.com/108857901/219094875-65c0a116-3244-4945-bff1-4a9c614c06c3.png)
+
 
 
 
